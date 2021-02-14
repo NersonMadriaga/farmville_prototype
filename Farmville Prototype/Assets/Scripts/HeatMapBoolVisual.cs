@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeatMapVisual : MonoBehaviour
+public class HeatMapBoolVisual : MonoBehaviour
 {
     private GridTerrain<bool> grid;
     private Mesh mesh;
@@ -39,14 +39,14 @@ public class HeatMapVisual : MonoBehaviour
     {
         MeshUtils.CreateEmptyMeshArrays(grid.GetWidth() * grid.GetHeight(), out Vector3[] vertices, out Vector2[] uv, out int[] triangles);
 
-        for(int x = 0; x<grid.GetWidth(); x++)
+        for (int x = 0; x < grid.GetWidth(); x++)
         {
-            for(int y=0; y<grid.GetHeight(); y++)
+            for (int y = 0; y < grid.GetHeight(); y++)
             {
                 int index = x * grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
                 bool gridValue = grid.GetGridObject(x, y);
-                float gridValueNormalized = gridValue ? 1f : 0f ;
+                float gridValueNormalized = gridValue ? 1f : 0f;
 
                 Vector2 gridValueUV = new Vector2(gridValueNormalized, 0f);
                 MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, gridValueUV, gridValueUV);
