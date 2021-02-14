@@ -7,25 +7,23 @@ public class Testing : MonoBehaviour
 {
     [SerializeField] int columns, rows;
     [SerializeField] float cellSize, xOrigin, yOrigin;
+
+    [SerializeField] private HeatMapVisual heatMapVisual;
     private GridTerrain grid;
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        grid = new GridTerrain(columns,rows,cellSize,new Vector3(xOrigin,yOrigin));
+        grid = new GridTerrain(columns, rows, cellSize, new Vector3(xOrigin,yOrigin));
+
+        heatMapVisual.SetGrid(grid);
     }
 
-    private void Update()
+    public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            grid.SetValue(UtilsClass.GetMouseWorldPosition(),56);
-        }
-        
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(grid.GetValue(UtilsClass.GetMouseWorldPosition()));
-        }
+            Vector3 position = UtilsClass.GetMouseWorldPosition();
 
-
+            grid.AddValue(position, 50, 5,15);
+        }
     }
 }
